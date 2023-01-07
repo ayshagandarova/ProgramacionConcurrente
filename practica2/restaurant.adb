@@ -13,7 +13,7 @@ procedure Restaurant is
       nom: Unbounded_string;
       tipo: Integer;
    end record;
-   type aStrings is array (1 .. (PERSONES*2)) of unbounded_string;
+   type aStrings is array (0 .. (PERSONES*2-1)) of unbounded_string;
     
    MAX_CAPACITAT : constant Integer := 3;
    noms : constant aStrings := (
@@ -56,7 +56,7 @@ procedure Restaurant is
       Put_Line("BON DIA som en " & to_string(My_Nom) & " i sóm fumador");
 
           -- SECCI�N CR�TICA
-      maitre.entrarSalon(My_Nom, 0, Salon);
+      maitre.entrarFum(My_Nom, Salon);
       Put_Line("En " & to_string(My_Nom) & " diu: Prendré el menú del dia. Som al saló 1");
       delay 0.1;  -- lo que tarda en cruzar
       Put_Line("En " & to_string(My_Nom) & " diu: Ja he dinat, el compte per favor");
@@ -75,7 +75,7 @@ procedure Restaurant is
       Put_Line("BON DIA som en " & to_string(My_Nom) & " i sóm no fumador");
 
          -- SECCI�N CR�TICA
-      maitre.entrarSalon(My_Nom, 1, Salon);
+      maitre.entrarNoFum(My_Nom, Salon);
       Put_Line("En " & to_string(My_Nom) & " diu: Prendré el menú del dia. Som al saló 1");
       delay 0.1;  -- lo que tarda en cruzar
       Put_Line("En " & to_string(My_Nom) & " diu: Ja he dinat, el compte per favor");
@@ -84,10 +84,10 @@ procedure Restaurant is
    end no_fumador;
 
      -- ARRAY DE TAREAS --
-   type fumadors is array (1 .. PERSONES) of fumador;
+   type fumadors is array (0 .. PERSONES-1) of fumador;
    fum : fumadors;
 
-   type no_fumadors is array (1 .. PERSONES) of no_fumador;
+   type no_fumadors is array (0 .. PERSONES-1) of no_fumador;
    no_fum : no_fumadors;
 
 begin

@@ -1,0 +1,211 @@
+V "GNAT Lib v2020"
+P SS ZX
+
+RN
+RV SIMPLE_BARRIERS
+RV NO_DIRECT_BOOLEAN_OPERATORS
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTION_PROPAGATION
+RV NO_EXCEPTIONS
+RV NO_IO
+RV NO_PROTECTED_TYPES
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLICIT_LOOPS
+RV NO_ELABORATION_CODE
+RV MAX_PROTECTED_ENTRIES=2
+
+U def_monitor%b		def_monitor.adb		e0d26d27 NE OO PK IL
+W ada%s			ada.ads			ada.ali
+W ada.strings%s		a-string.ads		a-string.ali
+W ada.strings.unbounded%s  a-strunb.adb		a-strunb.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+Z system%s		system.ads		system.ali
+Z system.concat_5%s	s-conca5.adb		s-conca5.ali
+Z system.concat_6%s	s-conca6.adb		s-conca6.ali
+Z system.concat_8%s	s-conca8.adb		s-conca8.ali
+Z system.img_int%s	s-imgint.adb		s-imgint.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+Z system.soft_links%s	s-soflin.adb		s-soflin.ali
+Z system.tasking.protected_objects%s  s-taprob.adb  s-taprob.ali
+Z system.tasking.protected_objects.entries%s  s-tpoben.adb  s-tpoben.ali
+Z system.tasking.protected_objects.operations%s  s-tpobop.adb  s-tpobop.ali
+
+U def_monitor%s		def_monitor.ads		4dce8e39 EE OO PF PK IL
+W ada%s			ada.ads			ada.ali
+Z ada.exceptions%s	a-except.adb		a-except.ali
+W ada.strings%s		a-string.ads		a-string.ali
+W ada.strings.unbounded%s  a-strunb.adb		a-strunb.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+Z system%s		system.ads		system.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+Z system.soft_links%s	s-soflin.adb		s-soflin.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+Z system.tasking%s	s-taskin.adb		s-taskin.ali
+Z system.tasking.protected_objects%s  s-taprob.adb  s-taprob.ali
+Z system.tasking.protected_objects.entries%s  s-tpoben.adb  s-tpoben.ali
+
+D ada.ads		20200819050642 76789da1 ada%s
+D a-charac.ads		20200819050641 2d3ec45b ada.characters%s
+D a-chlat1.ads		20200819050641 66457d31 ada.characters.latin_1%s
+D a-except.ads		20200819050642 a7106115 ada.exceptions%s
+D a-finali.ads		20200819050642 bf4f806b ada.finalization%s
+D a-ioexce.ads		20200819050642 e4a01f64 ada.io_exceptions%s
+D a-stream.ads		20200819050642 119b8fb3 ada.streams%s
+D a-string.ads		20200819050642 90ac6797 ada.strings%s
+D a-strmap.ads		20200819050642 e8bb714a ada.strings.maps%s
+D a-strunb.ads		20200819050642 1656705b ada.strings.unbounded%s
+D a-tags.ads		20200819050643 edddc8f0 ada.tags%s
+D a-textio.ads		20200819050643 aef4d56d ada.text_io%s
+D a-unccon.ads		20200819050643 0e9b276f ada.unchecked_conversion%s
+D def_monitor.ads	20230107203320 f56c2b0f def_monitor%s
+D def_monitor.adb	20230107203232 ad1ce31e def_monitor%b
+D interfac.ads		20200819050644 5ab55268 interfaces%s
+D i-c.ads		20200819050644 c624fa43 interfaces.c%s
+D i-cstrea.ads		20200819050644 e53d8b8e interfaces.c_streams%s
+D system.ads		20200819050647 085b6ffb system%s
+D s-atacco.ads		20200819050645 4c36d12f system.address_to_access_conversions%s
+D s-atocou.ads		20200819050645 b45c2d8d system.atomic_counters%s
+D s-conca5.ads		20200819050645 875e432e system.concat_5%s
+D s-conca6.ads		20200819050645 d2c72db2 system.concat_6%s
+D s-conca8.ads		20200819050645 e3074dd7 system.concat_8%s
+D s-crtl.ads		20200819050645 0ebbdb71 system.crtl%s
+D s-exctab.ads		20200819050645 54135002 system.exception_table%s
+D s-ficobl.ads		20200819050645 078245e4 system.file_control_block%s
+D s-finmas.ads		20200819050645 7811a767 system.finalization_masters%s
+D s-finroo.ads		20200819050645 4ff27390 system.finalization_root%s
+D s-imgint.ads		20200819050645 02dbe0c2 system.img_int%s
+D s-memory.ads		20200819050645 597d6634 system.memory%s
+D s-multip.ads		20200819050645 38ac9f73 system.multiprocessors%s
+D s-oscons.ads		20200819111918 49f7716a system.os_constants%s
+D s-osinte.ads		20200819050640 01b3ad47 system.os_interface%s
+D s-parame.ads		20200819050646 4752c4cb system.parameters%s
+D s-secsta.ads		20200819050646 9b3ab94b system.secondary_stack%s
+D s-soflin.ads		20200819050646 a7318a92 system.soft_links%s
+D s-stache.ads		20200819050646 a37c21ec system.stack_checking%s
+D s-stausa.ads		20200819050646 017a0a05 system.stack_usage%s
+D s-stalib.ads		20200819050646 6b7a13f2 system.standard_library%s
+D s-stalib.adb		20200819050646 f2fe2716 system.standard_library%b
+D s-stoele.ads		20200819050646 2dc34a04 system.storage_elements%s
+D s-stopoo.ads		20200819050646 e9fa2dd8 system.storage_pools%s
+D s-stposu.ads		20200819050646 e251976f system.storage_pools.subpools%s
+D s-stratt.ads		20200819050646 9a2744e9 system.stream_attributes%s
+D s-tasinf.ads		20200819050641 801abd01 system.task_info%s
+D s-taspri.ads		20200819050641 f40ac08d system.task_primitives%s
+D s-taskin.ads		20200819050641 88fba9ad system.tasking%s
+D s-taprob.ads		20200819050641 acd6094d system.tasking.protected_objects%s
+D s-tpoben.ads		20200819050641 60ad3dae system.tasking.protected_objects.entries%s
+D s-tpobop.ads		20200819050641 5f548bb3 system.tasking.protected_objects.operations%s
+D s-traent.ads		20200819050646 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20200819050646 5ecf7212 system.unsigned_types%s
+D s-wchcon.ads		20200819050646 1b7d22d2 system.wch_con%s
+G a e
+G c Z s s [TastringsBIP def_monitor 13 3 none]
+G c Z s s [TastringsBDI def_monitor 13 3 none]
+G c Z s s [TastringsBDA def_monitor 13 3 none]
+G c Z s s [TastringsBDF def_monitor 13 3 none]
+G c Z s b [inicializarsalons def_monitor__monitor 20 15 none]
+G c Z s b [entrarfum def_monitor__monitor 21 11 none]
+G c Z s b [entrarnofum def_monitor__monitor 22 11 none]
+G c Z s b [sortirsalon def_monitor__monitor 23 15 none]
+G c Z s b [asignarsalon def_monitor__monitor 26 15 none]
+G c Z s b [monitor__inicializarsalonsN def_monitor 20 5 none]
+G c Z s b [monitor__inicializarsalonsP def_monitor 20 5 none]
+G c Z s b [monitor__sortirsalonN def_monitor 23 5 none]
+G c Z s b [monitor__sortirsalonP def_monitor 23 5 none]
+G c Z s b [monitor__asignarsalonN def_monitor 26 5 none]
+G c Z s b [monitor__asignarsalonP def_monitor 26 5 none]
+G c Z s s [rsalonsIP def_monitor 8 8 none]
+G c Z s s [TasalonsBIP def_monitor 12 3 none]
+G c Z s s [TabooleanentradaBIP def_monitor 16 3 none]
+G c Z s s [TabooleansalonsBIP def_monitor 17 3 none]
+G c Z s s [monitorVDI def_monitor 19 3 none]
+G c Z s s [monitorVDF def_monitor 19 3 none]
+G c Z s s [monitorVIP def_monitor 19 3 none]
+G c Z s s [P90sIP def_monitor 21 5 none]
+G c Z s s [P94sIP def_monitor 22 5 none]
+X 1 ada.ads
+16K9*Ada 20e8 14|1r6 1r23 2r6 2r33 15|1r6 1r23 2r6 2r33
+X 8 a-string.ads
+16K13*Strings 35e16 14|2r10 2r37 15|2r10 2r37
+X 10 a-strunb.ads
+82K21*Unbounded 758e26 14|2w18 2r45 15|2w18 2r45
+87R9*Unbounded_String<5|43R9> 741e14 14|13r49 21r31 22r33 23r37 26r36 15|5r31
+. 20r29 35r36 76r36
+103V13*To_Unbounded_String{87R9} 14|14s41 14s73 14s107
+116V13*To_String{string} 15|15s37 29s37 95s42 95s167 97s42 97s167
+X 12 a-textio.ads
+57K13*Text_IO 727e16 14|1w10 1r27 15|1w10 1r27
+508U14*Put_Line 15|15s11 29s11 95s16 97s16 117s11 118s11
+X 14 def_monitor.ads
+4K9*def_monitor 35l5 35e16 15|3b14 125l5 125t16
+6i3*NUM_SALONS{integer} 12r31
+7i3*TIPUS_SALON{integer} 13r31
+8R8*rSalons 11e13 12r48
+9i5*Capacitat{integer} 15|12r55 26r55 41r34 44m41 44r64 52m31 52r54 83m27
+. 83r56 89r30 93r61 114m26
+10i5*Tipus{integer} 15|40r29 50r32 53m31 64r34 68r46 85r37 90m32 94r30 95r207
+. 96r33 97r207 115m26
+12A8*aSalons(8R8)<integer> 31r13
+13A8*aStrings(10|87R9)<integer> 14r28 32r16
+14a3*tipusPersones{13A8} 32r26 15|95r177 97r177
+16A8*aBooleanEntrada(boolean)<integer> 28r17
+17A8*aBooleanSalons(boolean)<integer> 29r18
+19W18*Monitor 19d26 19d47 28E5 34l7 34e14 15|4b17 123l7 123t14
+19i26 numSalons{integer} 30r29
+19i47 maxCapacitat{integer} 33r32
+20U15 inicializarSalons 15|104b16 121l10 121t27
+21Y11 entrarFum 21>22 21<49 15|20b11 31l9 31t18
+21r22 Nom{10|87R9} 15|24r24 29r47
+21i49 Salon{integer} 15|28m11 29r91
+22Y11 entrarNoFum 22>24 22<51 15|5b11 17l9 17t20
+22r24 Nom{10|87R9} 15|10r24 15r47
+22i51 Salon{integer} 15|14m11 15r94
+23U15 sortirSalon 23>28 23>55 15|76b15 99l9 99t20
+23r28 Nom{10|87R9} 15|76b27 95r52 97r52
+23i55 Salon{integer} 15|76b54 81r22 95r94 97r94
+26U15 asignarSalon 26>28 26>54 26<73 15|10s11 24s11 35b15 74l10 74t22
+26r28 Nom{10|87R9} 15|35b28
+26i54 Tipo{integer} 15|35b54 40r37 53r41
+26i73 IdSalon{integer} 15|35b73 45m31 54m21
+28a5 potEntrar{16A8} 15|5r77 20r75 60r11 61r11 65r26 66r26 68r26 85r11 106r11
+. 107r11
+29a5 dispoSalon{17A8} 15|48r26 63r19 86r11 109r11 110r11 111r11
+30i5 NUM_SALONS{integer} 15|39r24 62r24 118r40
+31a5 salons{12A8} 15|12r39 26r39 40r19 41r24 44r31 44r54 50r22 52r21 52r44
+. 53r21 64r24 68r36 83r11 83r40 85r21 89r14 90r16 93r45 94r14 95r191 96r17
+. 97r191 113r20 114r16 115r16
+32a5 tipusPers{13A8}
+33i5 MAX_CAPACITAT{integer} 15|12r23 26r23 41r47 93r29 119r13
+X 15 def_monitor.adb
+5r23 Nom{10|87R9}
+5i49 Salon{integer}
+6i11 DispoSalon{integer} 12m11 16r36
+7i11 IdSalon{integer} 10m32 12r46 14r20
+20r21 Nom{10|87R9}
+20i47 Salon{integer}
+21i11 DispoSalon{integer} 26m11 30r36
+22i11 IdSalon{integer} 24m32 26r46 28r20
+36b11 encontrada{boolean} 38m11 42r33 43m31 50r50 51m21 59m11
+39i15 i{integer} 40r26 41r31 44r38 44r61 45r42 48r37 50r29 52r28 52r51 53r28
+. 54r32
+62i15 i{integer} 63r30 64r31 68r43
+77i11 idSalon{integer} 81m11 83r18 83r47 85r28 86r22 89r21 90r23 93r52 94r21
+. 95r198 96r24 97r198
+78i11 disponibilidad{integer} 93m11 95r131 97r131
+113i15 i{integer} 114r23 115r23
+X 19 system.ads
+67M9*Address
+X 31 s-memory.ads
+53V13*Alloc{19|67M9} 103i<c,__gnat_malloc>22
+68U14*Free 104i<c,__gnat_free>22
+76V13*Realloc{19|67M9} 105i<c,__gnat_realloc>22
+X 39 s-stausa.ads
+208U14*Initialize 209i<c,__gnat_stack_usage_initialize>22
+273U14*Output_Results 277i<c,__gnat_stack_usage_output_results>22
+X 41 s-stalib.adb
+93U14 Break_Start 94i<c,__gnat_break_start>22
+

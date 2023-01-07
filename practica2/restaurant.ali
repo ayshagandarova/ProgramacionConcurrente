@@ -23,7 +23,7 @@ RV MAX_TASK_ENTRIES=1
 RV MAX_TASKS=1+
 RV MAX_ENTRY_QUEUE_LENGTH=1+
 
-U restaurant%b		restaurant.adb		0a8ef93a NE OO SU
+U restaurant%b		restaurant.adb		64c2425f NE OO SU
 W ada%s			ada.ads			ada.ali
 Z ada.calendar.delays%s	a-caldel.adb		a-caldel.ali
 Z ada.exceptions%s	a-except.adb		a-except.ali
@@ -63,11 +63,11 @@ D a-strunb.ads		20200819050642 1656705b ada.strings.unbounded%s
 D a-tags.ads		20200819050643 edddc8f0 ada.tags%s
 D a-textio.ads		20200819050643 aef4d56d ada.text_io%s
 D a-unccon.ads		20200819050643 0e9b276f ada.unchecked_conversion%s
-D def_monitor.ads	20230107181844 49c03a5d def_monitor%s
+D def_monitor.ads	20230107203320 f56c2b0f def_monitor%s
 D interfac.ads		20200819050644 5ab55268 interfaces%s
 D i-c.ads		20200819050644 c624fa43 interfaces.c%s
 D i-cstrea.ads		20200819050644 e53d8b8e interfaces.c_streams%s
-D restaurant.adb	20230107174922 fbec6651 restaurant%b
+D restaurant.adb	20230107203256 290ccc66 restaurant%b
 D system.ads		20200819050647 085b6ffb system%s
 D s-atacco.ads		20200819050645 4c36d12f system.address_to_access_conversions%s
 D s-atocou.ads		20200819050645 b45c2d8d system.atomic_counters%s
@@ -107,19 +107,20 @@ D s-unstyp.ads		20200819050646 5ecf7212 system.unsigned_types%s
 D s-wchcon.ads		20200819050646 1b7d22d2 system.wch_con%s
 G a e
 G c Z b b [restaurant standard 7 11 none]
-G r s monitor [restaurant standard 7 11 none] [monitorVIP def_monitor 16 3 none]
-G r l monitor [restaurant standard 7 11 none] [monitorVDI def_monitor 16 3 none]
-G r k monitor [restaurant standard 7 11 none] [monitorVDF def_monitor 16 3 none]
-G r o none [restaurant standard 7 11 none] [entrarsalon def_monitor__monitor 18 11 none]
-G r p none [restaurant standard 7 11 none] [sortirsalon def_monitor__monitor 19 15 none]
-G r p none [restaurant standard 7 11 none] [inicializarsalons def_monitor__monitor 17 15 none]
+G r s monitor [restaurant standard 7 11 none] [monitorVIP def_monitor 19 3 none]
+G r l monitor [restaurant standard 7 11 none] [monitorVDI def_monitor 19 3 none]
+G r k monitor [restaurant standard 7 11 none] [monitorVDF def_monitor 19 3 none]
+G r o none [restaurant standard 7 11 none] [entrarfum def_monitor__monitor 21 11 none]
+G r p none [restaurant standard 7 11 none] [sortirsalon def_monitor__monitor 23 15 none]
+G r o none [restaurant standard 7 11 none] [entrarnofum def_monitor__monitor 22 11 none]
+G r p none [restaurant standard 7 11 none] [inicializarsalons def_monitor__monitor 20 15 none]
 X 1 ada.ads
 16K9*Ada 20e8 21|3r6 3r23 5r6 5r33
 X 11 a-string.ads
 16K13*Strings 35e16 21|5r10 5r37
 X 13 a-strunb.ads
 82K21*Unbounded 758e26 21|5w18 5r45
-87R9*Unbounded_String<7|43R9> 741e14 21|13r12 16r50 40r29 45r29 49r16 52r30
+87R9*Unbounded_String<7|43R9> 741e14 21|13r12 16r52 40r29 45r29 49r16 52r30
 . 68r16 71r30
 103V13*To_Unbounded_String{87R9} 21|20s7 21s7 22s7 23s7 24s7 25s7 26s7 27s7
 . 28s7 29s7 30s7 31s7 32s7 33s7
@@ -128,12 +129,13 @@ X 15 a-textio.ads
 57K13*Text_IO 727e16 21|3w10 3r27
 508U14*Put_Line 21|56s7 60s7 62s7 63s7 75s7 79s7 81s7 82s7
 X 17 def_monitor.ads
-4K9*def_monitor 28e16 21|4w6 4r23
-6i4*NUM_SALONS{integer} 21|36r21
-16W18*Monitor 27e14 21|36r13
-17U15 inicializarSalons 21|95s11
-18Y11 entrarSalon 21|59s14 78s14
-19U15 sortirSalon 21|64s14 83s14
+4K9*def_monitor 35e16 21|4w6 4r23
+6i3*NUM_SALONS{integer} 21|36r21
+19W18*Monitor 34e14 21|36r13
+20U15 inicializarSalons 21|95s11
+21Y11 entrarFum 21|59s14
+22Y11 entrarNoFum 21|78s14
+23U15 sortirSalon 21|64s14 83s14
 X 21 restaurant.adb
 7U11*Restaurant 7b11 101l5 101t15
 10i4 PERSONES{integer} 16r34 87r33 90r36 96r19 98r30
@@ -143,18 +145,18 @@ X 21 restaurant.adb
 16A9 aStrings(13|87R9)<integer> 19r20
 18i4 MAX_CAPACITAT{integer}
 19a4 noms{16A9} 97r20 98r23
-36w4 maitre{17|16W18} 59r7 64r7 78r7 83r7 95r4
-39T14 fumador 41l8 41e15 48b14 65l8 65t15 87r46
+36w4 maitre{17|19W18} 59r7 64r7 78r7 83r7 95r4
+39T14 fumador 41l8 41e15 48b14 65l8 65t15 87r48
 40Y13 Start 40>20 52b14 54l11 54t16 97s14
 40r20 Nom{13|87R9} 53r20
-44T14 no_fumador 46l8 46e18 67b14 84l8 84t18 90r49
+44T14 no_fumador 46l8 46e18 67b14 84l8 84t18 90r51
 45Y13 Start 45>20 71b14 73l11 73t16 98s17
 45r20 Nom{13|87R9} 72r20
-49r7 My_Nom{13|87R9} 53m10 56r46 59r26 60r34 62r34 63r34 64r26
-50i7 Salon{integer} 59m37 64r34
+49r7 My_Nom{13|87R9} 53m10 56r46 59r24 60r34 62r34 63r34 64r26
+50i7 Salon{integer} 59m32 64r34
 52r21 Nom{13|87R9}
 68r7 My_Nom{13|87R9} 72m10 75r46 78r26 79r34 81r34 82r34 83r26
-69i7 Salon{integer} 78m37 83r34
+69i7 Salon{integer} 78m34 83r34
 71r21 Nom{13|87R9}
 87A9 fumadors(39T14)<integer> 88r10
 88a4 fum{87A9} 97r7
