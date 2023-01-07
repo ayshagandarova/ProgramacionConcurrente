@@ -1,0 +1,175 @@
+V "GNAT Lib v2020"
+M P W=b
+P SS ZX
+
+RN
+RV NO_DELAY
+RV NO_EXCEPTION_HANDLERS
+RV NO_EXCEPTION_PROPAGATION
+RV NO_EXCEPTIONS
+RV NO_FIXED_POINT
+RV NO_IO
+RV NO_LOCAL_PROTECTED_OBJECTS
+RV NO_NESTED_FINALIZATION
+RV NO_RELATIVE_DELAY
+RV NO_SECONDARY_STACK
+RV NO_STANDARD_STORAGE_POOLS
+RV NO_TASK_HIERARCHY
+RV NO_TASKING
+RV NO_DEFAULT_INITIALIZATION
+RV NO_DYNAMIC_SIZED_OBJECTS
+RV NO_IMPLICIT_LOOPS
+RV MAX_TASK_ENTRIES=1
+RV MAX_TASKS=1+
+RV MAX_ENTRY_QUEUE_LENGTH=1+
+
+U restaurant%b		restaurant.adb		0a8ef93a NE OO SU
+W ada%s			ada.ads			ada.ali
+Z ada.calendar.delays%s	a-caldel.adb		a-caldel.ali
+Z ada.exceptions%s	a-except.adb		a-except.ali
+Z ada.real_time%s	a-reatim.adb		a-reatim.ali
+W ada.strings%s		a-string.ads		a-string.ali
+W ada.strings.unbounded%s  a-strunb.adb		a-strunb.ali
+Z ada.tags%s		a-tags.adb		a-tags.ali
+W ada.text_io%s		a-textio.adb		a-textio.ali
+W def_monitor%s		def_monitor.adb		def_monitor.ali
+Z system%s		system.ads		system.ali
+Z system.concat_3%s	s-conca3.adb		s-conca3.ali
+Z system.img_int%s	s-imgint.adb		s-imgint.ali
+Z system.parameters%s	s-parame.adb		s-parame.ali
+Z system.secondary_stack%s  s-secsta.adb	s-secsta.ali
+Z system.soft_links%s	s-soflin.adb		s-soflin.ali
+Z system.standard_library%s  s-stalib.adb	s-stalib.ali
+Z system.task_info%s	s-tasinf.adb		s-tasinf.ali
+Z system.tasking%s	s-taskin.adb		s-taskin.ali
+Z system.tasking.protected_objects%s  s-taprob.adb  s-taprob.ali
+Z system.tasking.protected_objects.operations%s  s-tpobop.adb  s-tpobop.ali
+Z system.tasking.rendezvous%s  s-tasren.adb	s-tasren.ali
+Z system.tasking.stages%s  s-tassta.adb		s-tassta.ali
+
+D ada.ads		20200819050642 76789da1 ada%s
+D a-calend.ads		20200819050641 474d9720 ada.calendar%s
+D a-caldel.ads		20200819050641 9f20b83d ada.calendar.delays%s
+D a-charac.ads		20200819050641 2d3ec45b ada.characters%s
+D a-chlat1.ads		20200819050641 66457d31 ada.characters.latin_1%s
+D a-except.ads		20200819050642 a7106115 ada.exceptions%s
+D a-finali.ads		20200819050642 bf4f806b ada.finalization%s
+D a-ioexce.ads		20200819050642 e4a01f64 ada.io_exceptions%s
+D a-reatim.ads		20200819050640 0240fc73 ada.real_time%s
+D a-stream.ads		20200819050642 119b8fb3 ada.streams%s
+D a-string.ads		20200819050642 90ac6797 ada.strings%s
+D a-strmap.ads		20200819050642 e8bb714a ada.strings.maps%s
+D a-strunb.ads		20200819050642 1656705b ada.strings.unbounded%s
+D a-tags.ads		20200819050643 edddc8f0 ada.tags%s
+D a-textio.ads		20200819050643 aef4d56d ada.text_io%s
+D a-unccon.ads		20200819050643 0e9b276f ada.unchecked_conversion%s
+D def_monitor.ads	20230107181844 49c03a5d def_monitor%s
+D interfac.ads		20200819050644 5ab55268 interfaces%s
+D i-c.ads		20200819050644 c624fa43 interfaces.c%s
+D i-cstrea.ads		20200819050644 e53d8b8e interfaces.c_streams%s
+D restaurant.adb	20230107174922 fbec6651 restaurant%b
+D system.ads		20200819050647 085b6ffb system%s
+D s-atacco.ads		20200819050645 4c36d12f system.address_to_access_conversions%s
+D s-atocou.ads		20200819050645 b45c2d8d system.atomic_counters%s
+D s-conca3.ads		20200819050645 0b705ca5 system.concat_3%s
+D s-crtl.ads		20200819050645 0ebbdb71 system.crtl%s
+D s-exctab.ads		20200819050645 54135002 system.exception_table%s
+D s-ficobl.ads		20200819050645 078245e4 system.file_control_block%s
+D s-finmas.ads		20200819050645 7811a767 system.finalization_masters%s
+D s-finroo.ads		20200819050645 4ff27390 system.finalization_root%s
+D s-imgint.ads		20200819050645 02dbe0c2 system.img_int%s
+D s-memory.ads		20200819050645 597d6634 system.memory%s
+D s-multip.ads		20200819050645 38ac9f73 system.multiprocessors%s
+D s-oscons.ads		20200819111918 49f7716a system.os_constants%s
+D s-osinte.ads		20200819050640 01b3ad47 system.os_interface%s
+D s-parame.ads		20200819050646 4752c4cb system.parameters%s
+D s-secsta.ads		20200819050646 9b3ab94b system.secondary_stack%s
+D s-soflin.ads		20200819050646 a7318a92 system.soft_links%s
+D s-stache.ads		20200819050646 a37c21ec system.stack_checking%s
+D s-stausa.ads		20200819050646 017a0a05 system.stack_usage%s
+D s-stalib.ads		20200819050646 6b7a13f2 system.standard_library%s
+D s-stalib.adb		20200819050646 f2fe2716 system.standard_library%b
+D s-stoele.ads		20200819050646 2dc34a04 system.storage_elements%s
+D s-stopoo.ads		20200819050646 e9fa2dd8 system.storage_pools%s
+D s-stposu.ads		20200819050646 e251976f system.storage_pools.subpools%s
+D s-stratt.ads		20200819050646 9a2744e9 system.stream_attributes%s
+D s-tasinf.ads		20200819050641 801abd01 system.task_info%s
+D s-taspri.ads		20200819050641 f40ac08d system.task_primitives%s
+D s-taprop.ads		20200819050641 6eefbe12 system.task_primitives.operations%s
+D s-taskin.ads		20200819050641 88fba9ad system.tasking%s
+D s-taprob.ads		20200819050641 acd6094d system.tasking.protected_objects%s
+D s-tpoben.ads		20200819050641 60ad3dae system.tasking.protected_objects.entries%s
+D s-tpobop.ads		20200819050641 5f548bb3 system.tasking.protected_objects.operations%s
+D s-tasren.ads		20200819050641 a67a9949 system.tasking.rendezvous%s
+D s-tassta.ads		20200819050641 cca55c94 system.tasking.stages%s
+D s-traent.ads		20200819050646 005bf670 system.traceback_entries%s
+D s-unstyp.ads		20200819050646 5ecf7212 system.unsigned_types%s
+D s-wchcon.ads		20200819050646 1b7d22d2 system.wch_con%s
+G a e
+G c Z b b [restaurant standard 7 11 none]
+G r s monitor [restaurant standard 7 11 none] [monitorVIP def_monitor 16 3 none]
+G r l monitor [restaurant standard 7 11 none] [monitorVDI def_monitor 16 3 none]
+G r k monitor [restaurant standard 7 11 none] [monitorVDF def_monitor 16 3 none]
+G r o none [restaurant standard 7 11 none] [entrarsalon def_monitor__monitor 18 11 none]
+G r p none [restaurant standard 7 11 none] [sortirsalon def_monitor__monitor 19 15 none]
+G r p none [restaurant standard 7 11 none] [inicializarsalons def_monitor__monitor 17 15 none]
+X 1 ada.ads
+16K9*Ada 20e8 21|3r6 3r23 5r6 5r33
+X 11 a-string.ads
+16K13*Strings 35e16 21|5r10 5r37
+X 13 a-strunb.ads
+82K21*Unbounded 758e26 21|5w18 5r45
+87R9*Unbounded_String<7|43R9> 741e14 21|13r12 16r50 40r29 45r29 49r16 52r30
+. 68r16 71r30
+103V13*To_Unbounded_String{87R9} 21|20s7 21s7 22s7 23s7 24s7 25s7 26s7 27s7
+. 28s7 29s7 30s7 31s7 32s7 33s7
+116V13*To_String{string} 21|56s36 60s24 62s24 63s24 75s36 79s24 81s24 82s24
+X 15 a-textio.ads
+57K13*Text_IO 727e16 21|3w10 3r27
+508U14*Put_Line 21|56s7 60s7 62s7 63s7 75s7 79s7 81s7 82s7
+X 17 def_monitor.ads
+4K9*def_monitor 28e16 21|4w6 4r23
+6i4*NUM_SALONS{integer} 21|36r21
+16W18*Monitor 27e14 21|36r13
+17U15 inicializarSalons 21|95s11
+18Y11 entrarSalon 21|59s14 78s14
+19U15 sortirSalon 21|64s14 83s14
+X 21 restaurant.adb
+7U11*Restaurant 7b11 101l5 101t15
+10i4 PERSONES{integer} 16r34 87r33 90r36 96r19 98r30
+12R9 persona 15e14
+13r7 nom{13|87R9}
+14i7 tipo{integer}
+16A9 aStrings(13|87R9)<integer> 19r20
+18i4 MAX_CAPACITAT{integer}
+19a4 noms{16A9} 97r20 98r23
+36w4 maitre{17|16W18} 59r7 64r7 78r7 83r7 95r4
+39T14 fumador 41l8 41e15 48b14 65l8 65t15 87r46
+40Y13 Start 40>20 52b14 54l11 54t16 97s14
+40r20 Nom{13|87R9} 53r20
+44T14 no_fumador 46l8 46e18 67b14 84l8 84t18 90r49
+45Y13 Start 45>20 71b14 73l11 73t16 98s17
+45r20 Nom{13|87R9} 72r20
+49r7 My_Nom{13|87R9} 53m10 56r46 59r26 60r34 62r34 63r34 64r26
+50i7 Salon{integer} 59m37 64r34
+52r21 Nom{13|87R9}
+68r7 My_Nom{13|87R9} 72m10 75r46 78r26 79r34 81r34 82r34 83r26
+69i7 Salon{integer} 78m37 83r34
+71r21 Nom{13|87R9}
+87A9 fumadors(39T14)<integer> 88r10
+88a4 fum{87A9} 97r7
+90A9 no_fumadors(44T14)<integer> 91r13
+91a4 no_fum{90A9} 98r7
+96i8 i{integer} 97r11 97r25 98r14 98r28
+X 22 system.ads
+67M9*Address
+X 32 s-memory.ads
+53V13*Alloc{22|67M9} 103i<c,__gnat_malloc>22
+68U14*Free 104i<c,__gnat_free>22
+76V13*Realloc{22|67M9} 105i<c,__gnat_realloc>22
+X 40 s-stausa.ads
+208U14*Initialize 209i<c,__gnat_stack_usage_initialize>22
+273U14*Output_Results 277i<c,__gnat_stack_usage_output_results>22
+X 42 s-stalib.adb
+93U14 Break_Start 94i<c,__gnat_break_start>22
+
