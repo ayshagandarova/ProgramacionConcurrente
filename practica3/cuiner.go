@@ -32,7 +32,7 @@ func failOnError(err error, msg string) {
 type Empty struct{} //struct sense camps zero bytes
 
 func main() {
-	// cconecta con el servidor RabbitMQ
+	// conecta con el servidor RabbitMQ
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
@@ -64,61 +64,35 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
-	encarrec, err := ch.QueueDeclare( // cola para pedir sushi al cuiner
-		"encarrec", // name
-		true,       // durable
-		false,      // delete when unused
-		false,      // exclusive
-		false,      // no-wait
-		nil,        // arguments
-	)
-	failOnError(err, "Failed to declare a queue")
+	var contador = 0
+	for i := 0; i < tipusSushis; i++ {
+		for j := 0; j < sushis[i]; j++ {
+			contador++
+			err = ch.Publish(
+				"",        // exchange
+				plat.Name, // routing key
+				false,     // mandatory
+				false,     // immediate
+				amqp.Publishing{
+					ContentType: "text/plain",
+					Body:        []byte(strconv.Itoa(contador)),
+				})
+			failOnError(err, "Failed to publish a message")
 
-	msgs, err := ch.Consume( // va a leer los mensajes de la cola encarrec
-		encarrec.Name, // queue
-		"",            // consumer
-		false,         // auto-ack  // usamos mensajes ack manualmente
-		false,         // exclusive
-		false,         // no-local
-		false,         // no-wait
-		nil,           // args
-	)
-	failOnError(err, "Failed to register a consumer")
-
-	go func() {
-		for d := range msgs {
-			var contador = 0
-			for i := 0; i < tipusSushis; i++ {
-				for j := 0; j < sushis[i]; j++ {
-					contador++
-					err = ch.Publish(
-						"",        // exchange
-						plat.Name, // routing key
-						false,     // mandatory
-						false,     // immediate
-						amqp.Publishing{
-							ContentType: "text/plain",
-							Body:        []byte(strconv.Itoa(contador)),
-						})
-					failOnError(err, "Failed to publish a message")
-
-					log.Printf("Posa dins el plat ", nomSushis[j])
-				}
-			}
-			if contador == 10 {
-				err = ch.Publish(
-					"",        // exchange
-					plat.Name, // routing key
-					false,     // mandatory
-					false,     // immediate
-					amqp.Publishing{
-						ContentType: "text/plain",
-						Body:        []byte("menjar"),
-					})
-				failOnError(err, "Failed to publish a message")
-			}
-			d.Ack(false) //confirma una entrega una vez haya acabado la tarea
+			log.Println("Posa dins el plat ", nomSushis[j])
 		}
-	}()
+	}
+	if contador == 10 {
+		err = ch.Publish(
+			"",        // exchange
+			plat.Name, // routing key
+			false,     // mandatory
+			false,     // immediate
+			amqp.Publishing{
+				ContentType: "text/plain",
+				Body:        []byte("menjar"),
+			})
+		failOnError(err, "Failed to publish a message")
+	}
 
 }

@@ -19,7 +19,7 @@ func failOnError(err error, msg string) {
 type Empty struct{} //struct sense camps zero bytes
 
 func main() {
-	// cconecta con el servidor RabbitMQ
+	// conecta con el servidor RabbitMQ
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
 	failOnError(err, "Failed to connect to RabbitMQ")
 	defer conn.Close()
@@ -39,30 +39,10 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
-	encarrec, err := ch.QueueDeclare( // cola para pedir sushi al cuiner
-		"encarrec", // name
-		true,       // durable
-		false,      // delete when unused
-		false,      // exclusive
-		false,      // no-wait
-		nil,        // arguments
-	)
-	failOnError(err, "Failed to declare a queue")
-
 	fmt.Println("Bon vesper, vinc a sopar de sushi")
 	fmt.Println("Ho vull tot!")
 
-	err = ch.Publish(
-		"",            // exchange
-		encarrec.Name, // routing key
-		false,         // mandatory
-		false,         // immediate
-		amqp.Publishing{
-			ContentType: "text/plain",
-			Body:        []byte("vull"),
-		})
-
-	msgSushis, err := ch.Consume( // va a leer los mensajes de la cola encarrec
+	msgSushis, err := ch.Consume( // va a leer los mensajes de la cola de sushis
 		plat.Name, // queue
 		"",        // consumer
 		false,     // auto-ack  // usamos mensajes ack manualmente
@@ -73,14 +53,18 @@ func main() {
 	)
 	failOnError(err, "Failed to register a consumer")
 
+	finaliza := make(chan bool)
 	go func() {
 		for d := range msgSushis {
 			if string(d.Body) == "menjar" {
-
+				fmt.Println("holaa menjaaa")
+				finaliza <- true
 			} else {
-
+				fmt.Println("holaa ", d.Body)
+				finaliza <- true
 			}
 		}
 	}()
+	<-finaliza
 
 }

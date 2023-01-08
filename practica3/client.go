@@ -41,30 +41,10 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
-	encarrec, err := ch.QueueDeclare( // cola para pedir sushi al cuiner
-		"encarrec", // name
-		true,       // durable
-		false,      // delete when unused
-		false,      // exclusive
-		false,      // no-wait
-		nil,        // arguments
-	)
-	failOnError(err, "Failed to declare a queue")
-
 	rand.Seed(time.Now().UTC().UnixNano())
 	var peces = rand.Intn(20)
 	fmt.Println("Bon vesper, vinc a sopar de sushi")
 	fmt.Println("Avuir menajare ", peces, " peces")
-
-	err = ch.Publish(
-		"",            // exchange
-		encarrec.Name, // routing key
-		false,         // mandatory
-		false,         // immediate
-		amqp.Publishing{
-			ContentType: "text/plain",
-			Body:        []byte("vull"),
-		})
 
 	msgSushis, err := ch.Consume( // va a leer los mensajes de la cola encarrec
 		plat.Name, // queue
@@ -77,14 +57,17 @@ func main() {
 	)
 	failOnError(err, "Failed to register a consumer")
 
+	finaliza := make(chan bool)
 	go func() {
 		for d := range msgSushis {
 			if string(d.Body) == "menjar" {
-
+				fmt.Println("holaa menjaaa")
+				finaliza <- true
 			} else {
-
+				fmt.Println("holaa ", d.Body)
+				finaliza <- true
 			}
 		}
 	}()
-
+	<-finaliza
 }
