@@ -35,7 +35,6 @@ public class Estudiant implements Runnable{
             Practica.sMutex.release();
 
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

@@ -1,5 +1,4 @@
-// Laura Cavero y Aisha Gandarova
-// enlace video: https://www.dropbox.com/s/m9cqa4cllo5tew2/Pr%C3%A1ctica3.mp4?dl=0
+// Antonio Pujol y Aisha Gandarova
 
 package main
 

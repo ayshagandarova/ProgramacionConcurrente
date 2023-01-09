@@ -9,39 +9,43 @@ public class Estudiant implements Runnable{
     @Override
     public void run() {
         try {
-            Thread.sleep((long)(Math.random()*2000));
+            Thread.sleep((long)(Math.random()*2000)); //El estudiant arriba a un moment random
             
-            Practica.sEntrada.acquire();
+            Practica.sEntrada.acquire(); //Bloquejam l'entrada y l'accés a variables
             Practica.sMutex.acquire();
             Practica.contEstudiants++;
             System.out.printf("%s entra a la sala d'estudi, nombre estudiants: %d\n",name, Practica.contEstudiants);
             
-
-            if(Practica.contEstudiants >= Practica.MAX_ESTUDIANTS){
+            //Segons la casuística actual de l'aula, farem una cosa o l'altra
+            if(Practica.contEstudiants >= Practica.MAX_ESTUDIANTS){ // Hi han suficients estudiants per fer festa
                 System.out.println(name + ": FESTA!!!!!");
-                if(Practica.estat == Practica.Estat.ESPERANT){
+                if(Practica.estat == Practica.Estat.ESPERANT){ // Si el director ja hi era a l'aula, en seguida ho alliberam per acabar la festa
                     Practica.sDirector.release();
                 } 
                 Practica.sMutex.release();
-            }else{
+            }else{ // No hi han suficients estudiants per fer festa, estudiam
                 System.out.println(name + " estudia");
                 Practica.sMutex.release();
             }
             Practica.sEntrada.release();
             
-            Thread.sleep((long)(Math.random()*5000));
+            Thread.sleep((long)(Math.random()*5000)); //temps d'estudi random
 
             Practica.sMutex.acquire();
-            Practica.contEstudiants--;
+            Practica.contEstudiants--; // El estudiant s'en va de l'aula
             System.out.println(name + " surt de la sala d'estudi, nombre estudiants: " + Practica.contEstudiants);
-            if (Practica.contEstudiants == 0 && Practica.estat != Practica.Estat.FORA){
+            
+            //Si el estudiant és l'últim en sortir de l'aula
+            if (Practica.contEstudiants == 0 && Practica.estat == Practica.Estat.ESPERANT){ // en cas de que no hi ha hagut festa
                 System.out.println(name + ": ADEU Senyor Director, pot entrar si vol, no hi ha ningú");
-                Practica.sDirector.release(); // cuando llega a max y cuando llega a 0
+                Practica.sDirector.release();
+            } else if(Practica.contEstudiants == 0 && Practica.estat == Practica.Estat.DINS){ // cas en que hi ha hagut festa
+                System.out.println(name + ": ADEU Senyor Director, es queda sol");
+                Practica.sDirector.release();
             }
             Practica.sMutex.release();
 
         } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }

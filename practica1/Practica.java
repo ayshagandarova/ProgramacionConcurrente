@@ -3,16 +3,16 @@ package practica1;
 import java.util.concurrent.Semaphore;
 
 public class Practica {
-    static final int MAX_ESTUDIANTS = 4;
-    static final int ESTUDIANTS = 5;
-    static final int RONDAS = 3;
-    static Semaphore sEntrada = new Semaphore(1);
-    static Semaphore sDirector = new Semaphore(1);
-    static Semaphore sMutex = new Semaphore(1);
+    static final int MAX_ESTUDIANTS = 4; //Máxim d'estudiants permesos a l'aula d'estudi
+    static final int ESTUDIANTS = 5; //Nombre d'estudiants al programa
+    static final int RONDAS = 3; //Nombre de rondes que el director fará
+    static Semaphore sEntrada = new Semaphore(1); //Semáfor per controlar l'entrada d'estudiants a l'aula d'estudi
+    static Semaphore sDirector = new Semaphore(1); //Semáfor per controlar els bloquejos d'el director
+    static Semaphore sMutex = new Semaphore(1); //Semáfor per controlar l'exclusió mutua de les variables consultades i modificades
     static volatile int contEstudiants = 0;
   
 
-
+    //
     static final String[] noms = {
         "Pelayo",
         "Beltrán",

@@ -48,7 +48,7 @@ func main() {
 	rand.Seed(time.Now().UTC().UnixNano())
 	sushis[0] = rand.Intn(peces)
 	sushis[1] = rand.Intn(peces - sushis[0])
-	sushis[2] = rand.Intn(peces - sushis[0] - sushis[1])
+	sushis[2] = peces - sushis[0] - sushis[1]
 
 	fmt.Println(sushis[0], " peces amb ", nomSushis[0])
 	fmt.Println(sushis[1], " peces amb ", nomSushis[1])
@@ -79,7 +79,7 @@ func main() {
 				})
 			failOnError(err, "Failed to publish a message")
 
-			log.Println("Posa dins el plat ", nomSushis[j])
+			log.Println("Posa dins el plat ", nomSushis[i])
 		}
 	}
 	if contador == 10 {
