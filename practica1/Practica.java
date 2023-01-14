@@ -8,9 +8,9 @@ public class Practica {
     static final int RONDAS = 3; //Nombre de rondes que el director fará
     static Semaphore sEntrada = new Semaphore(1); //Semáfor per controlar l'entrada d'estudiants a l'aula d'estudi
     static Semaphore sDirector = new Semaphore(1); //Semáfor per controlar els bloquejos d'el director
-    static Semaphore sMutex = new Semaphore(1); //Semáfor per controlar l'exclusió mutua de les variables consultades i modificades
+    static Semaphore sMutex = new Semaphore(1); 
     static volatile int contEstudiants = 0;
-  
+//Semáfor per controlar l'exclusió mutua de les variables consultades i modificades  
 
     //
     static final String[] noms = {

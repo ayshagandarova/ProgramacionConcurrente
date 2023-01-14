@@ -40,6 +40,27 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
+	missatge, err := ch.QueueDeclare( // cola para los sushis
+		"missatge", // name
+		true,       // durable  // maybe cambiar esto luego
+		false,      // delete when unused
+		false,      // exclusive
+		false,      // no-wait
+		nil,        // arguments
+	)
+	failOnError(err, "Failed to declare a queue")
+
+	err = ch.ExchangeDeclare(
+		"permis", // name
+		"fanout", // type
+		true,     // durable
+		true,     // auto-deleted
+		false,    // internal
+		false,    // no-wait
+		nil,      // arguments
+	)
+	failOnError(err, "Failed to declare an exchange")
+
 	rand.Seed(time.Now().UTC().UnixNano())
 	var peces = rand.Intn(20)
 	fmt.Println("Bon vesper, vinc a sopar de sushi")
@@ -56,17 +77,69 @@ func main() {
 	)
 	failOnError(err, "Failed to register a consumer")
 
+	msgMissatge, err := ch.Consume( // va a leer los mensajes de la cola encarrec
+		missatge.Name, // queue
+		"",            // consumer
+		false,         // auto-ack  // usamos mensajes ack manualmente
+		false,         // exclusive
+		false,         // no-local
+		false,         // no-wait
+		nil,           // args
+	)
+	failOnError(err, "Failed to register a consumer")
+
 	finaliza := make(chan bool)
+	var flag = false
+	var counter = 1
+
 	go func() {
-		for d := range msgSushis {
-			if string(d.Body) == "menjar" {
-				fmt.Println("holaa menjaaa")
-				finaliza <- true
-			} else {
-				fmt.Println("holaa ", string(d.Body))
+		for m := range msgMissatge {
+			if m.RoutingKey == "" {
+				flag = true
+				fmt.Println("Cliente1 Menjar", string(m.Body))
+				m.Ack(false)
+			}
+			fmt.Println("Cliente1 Menjar post if", string(m.Body))
+		}
+	}()
+
+	go func() {
+
+		fmt.Println("Cliente1 Comença ", flag, counter)
+		for counter < peces {
+			if flag {
+				fmt.Println("Cliente1 Comença post if", flag, counter)
+				for m := range msgSushis {
+					if m.RoutingKey == plat.Name {
+						fmt.Println("Cliente1 Consumeix", string(m.Body))
+						m.Ack(false)
+						if counter == peces {
+							break
+						}
+
+						counter++
+					}
+
+				}
 				finaliza <- true
 			}
 		}
+
+		/*var dlvry = <-msgMissatge
+		//dlvry.Ack(true)
+		if string(dlvry.Body) == "menjar" {
+			fmt.Println("holaa menjaaa")
+			flag = true
+			for i := 0; i < peces; i++ {
+				dlvry = <-msgSushis
+				if flag {
+					fmt.Println("holaa ", string(dlvry.Body))
+					//dlvry.Ack(true)
+				}
+			}
+			finaliza <- true
+		}*/
 	}()
+
 	<-finaliza
 }

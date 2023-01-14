@@ -1,17 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
- */
 package practica1;
 import java.util.concurrent.Semaphore;
 /**
  *
- * @author ashook
+ * @author Aisha Gandarova y Antonio Pujol
+ * enllaç vídeo dropbox: https://www.dropbox.com/s/nc2x1jdk5h6lqi9/Pr%C3%A1ctica1.mp4?dl=0
  */
 public class Practica {
 
-    static final int MAX_ESTUDIANTS = 4; //Máxim d'estudiants permesos a l'aula d'estudi
-    static final int ESTUDIANTS = 10; //Nombre d'estudiants al programa
+    static final int MAX_ESTUDIANTS = 15; //Máxim d'estudiants permesos a l'aula d'estudi
+    static final int ESTUDIANTS = 5; //Nombre d'estudiants al programa
     static final int RONDAS = 3; //Nombre de rondes que el director fará
     static Semaphore sEntrada = new Semaphore(1); //Semáfor per controlar l'entrada d'estudiants a l'aula d'estudi
     static Semaphore sDirector = new Semaphore(0); //Semáfor per controlar els bloquejos d'el director
@@ -59,7 +56,7 @@ public class Practica {
         dir = new Thread(new Director(RONDAS)); //Cream el fil director i el iniciam
         dir.start();
         for (int i=0; i< ESTUDIANTS; i++) { //Cream i iniciam els fils d'estudiants
-            estudiants[i] = new Thread(new Estudiant(noms10[i]));
+            estudiants[i] = new Thread(new Estudiant(noms5[i]));
             estudiants[i].start();
         }
 

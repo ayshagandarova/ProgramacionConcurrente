@@ -64,6 +64,43 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
+	missatge, err := ch.QueueDeclare( // cola para los sushis
+		"missatge", // name
+		true,       // durable  // maybe cambiar esto luego
+		false,      // delete when unused
+		false,      // exclusive
+		false,      // no-wait
+		nil,        // arguments
+	)
+	failOnError(err, "Failed to declare a queue")
+
+	err = ch.ExchangeDeclare(
+		"permis", // name
+		"fanout", // type
+		true,     // durable
+		true,     // auto-deleted
+		false,    // internal
+		false,    // no-wait
+		nil,      // arguments
+	)
+	failOnError(err, "Failed to declare an exchange")
+
+	err = ch.QueueBind(
+		missatge.Name,
+		"",
+		"permis",
+		false,
+		nil,
+	)
+	failOnError(err, "Failed to declare a queue")
+
+	err = ch.Qos(
+		1,     // prefetch count
+		0,     // prefetch size
+		false, // global
+	)
+	failOnError(err, "Failed to set QoS")
+
 	var contador = 0
 	for i := 0; i < tipusSushis; i++ {
 		for j := 0; j < sushis[i]; j++ {
@@ -84,10 +121,10 @@ func main() {
 	}
 	if contador == 10 {
 		err = ch.Publish(
-			"",        // exchange
-			plat.Name, // routing key
-			false,     // mandatory
-			false,     // immediate
+			"permis", // exchange
+			"",       // routing key
+			false,    // mandatory
+			false,    // immediate
 			amqp.Publishing{
 				ContentType: "text/plain",
 				Body:        []byte("menjar"),
