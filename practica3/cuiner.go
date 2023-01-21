@@ -7,7 +7,6 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
-	"strconv"
 	"time"
 
 	"github.com/streadway/amqp"
@@ -64,7 +63,17 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
-	missatge, err := ch.QueueDeclare( // cola para los sushis
+	/*counter, err := ch.QueueDeclare( // cola para los sushis
+		"counter", // name
+		true,      // durable  // maybe cambiar esto luego
+		false,     // delete when unused
+		false,     // exclusive
+		false,     // no-wait
+		nil,       // arguments
+	)
+	failOnError(err, "Failed to declare a queue")*/
+
+	/* missatge, err := ch.QueueDeclare( // cola para los sushis
 		"missatge", // name
 		true,       // durable  // maybe cambiar esto luego
 		false,      // delete when unused
@@ -73,6 +82,16 @@ func main() {
 		nil,        // arguments
 	)
 	failOnError(err, "Failed to declare a queue")
+
+	missatgeGangster, err := ch.QueueDeclare( // cola para los sushis
+		"missatgeGangster", // name
+		true,               // durable  // maybe cambiar esto luego
+		false,              // delete when unused
+		false,              // exclusive
+		false,              // no-wait
+		nil,                // arguments
+	)
+	failOnError(err, "Failed to declare a queue") */
 
 	err = ch.ExchangeDeclare(
 		"permis", // name
@@ -85,22 +104,6 @@ func main() {
 	)
 	failOnError(err, "Failed to declare an exchange")
 
-	err = ch.QueueBind(
-		missatge.Name,
-		"",
-		"permis",
-		false,
-		nil,
-	)
-	failOnError(err, "Failed to declare a queue")
-
-	err = ch.Qos(
-		1,     // prefetch count
-		0,     // prefetch size
-		false, // global
-	)
-	failOnError(err, "Failed to set QoS")
-
 	var contador = 0
 	for i := 0; i < tipusSushis; i++ {
 		for j := 0; j < sushis[i]; j++ {
@@ -112,7 +115,7 @@ func main() {
 				false,     // immediate
 				amqp.Publishing{
 					ContentType: "text/plain",
-					Body:        []byte(strconv.Itoa(contador)),
+					Body:        []byte(nomSushis[i]),
 				})
 			failOnError(err, "Failed to publish a message")
 
@@ -120,6 +123,18 @@ func main() {
 		}
 	}
 	if contador == 10 {
+
+		/*err = ch.Publish(
+			"", // exchange
+			counter.Name,       // routing key
+			false,    // mandatory
+			false,    // immediate
+			amqp.Publishing{
+				ContentType: "text/plain",
+				Body:        []byte("menjar"),
+			})
+		failOnError(err, "Failed to publish a message") */
+
 		err = ch.Publish(
 			"permis", // exchange
 			"",       // routing key
