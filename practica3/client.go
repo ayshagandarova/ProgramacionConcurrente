@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"log"
 	"math/rand"
+	"strconv"
 	"time"
 
 	"github.com/streadway/amqp"
@@ -40,41 +41,15 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
-	missatge, err := ch.QueueDeclare( // cola para los sushis
-		"",    // name
-		true,  // durable  // maybe cambiar esto luego
-		true,  // delete when unused
-		false, // exclusive
-		false, // no-wait
-		nil,   // arguments
-	)
-	failOnError(err, "Failed to declare a queue")
-
-	/*counter, err := ch.QueueDeclare( // cola para los sushis
-		"counter", // name
-		true,      // durable  // maybe cambiar esto luego
-		false,     // delete when unused
-		false,     // exclusive
-		false,     // no-wait
-		nil,       // arguments
-	)
-	failOnError(err, "Failed to declare a queue")*/
-
-	err = ch.ExchangeDeclare(
+	permis, err := ch.QueueDeclare( // cola para los sushis
 		"permis", // name
-		"fanout", // type
-		true,     // durable
-		true,     // auto-deleted
-		false,    // internal
+		true,     // durable  // maybe cambiar esto luego
+		false,    // delete when unused
+		false,    // exclusive
 		false,    // no-wait
 		nil,      // arguments
 	)
-	failOnError(err, "Failed to declare an exchange")
-
-	rand.Seed(time.Now().UTC().UnixNano())
-	var peces = rand.Intn(10)
-	fmt.Println("Bon vesper, vinc a sopar de sushi")
-	fmt.Println("Avuir menajare ", peces, " peces")
+	failOnError(err, "Failed to declare a queue")
 
 	msgSushis, err := ch.Consume( // va a leer los mensajes de la cola encarrec
 		plat.Name, // queue
@@ -87,25 +62,16 @@ func main() {
 	)
 	failOnError(err, "Failed to register a consumer")
 
-	msgMissatge, err := ch.Consume( // va a leer los mensajes de la cola encarrec
-		missatge.Name, // queue
-		"",            // consumer
-		false,         // auto-ack  // usamos mensajes ack manualmente
-		false,         // exclusive
-		false,         // no-local
-		false,         // no-wait
-		nil,           // args
+	msgPermis, err := ch.Consume( // va a leer los mensajes de la cola encarrec
+		permis.Name, // queue
+		"",          // consumer
+		false,       // auto-ack  // usamos mensajes ack manualmente
+		false,       // exclusive
+		false,       // no-local
+		false,       // no-wait
+		nil,         // args
 	)
 	failOnError(err, "Failed to register a consumer")
-
-	err = ch.QueueBind(
-		missatge.Name,
-		"",
-		"permis",
-		false,
-		nil,
-	)
-	failOnError(err, "Failed to declare a queue")
 
 	err = ch.Qos(
 		1,     // prefetch count
@@ -115,65 +81,47 @@ func main() {
 	failOnError(err, "Failed to set QoS")
 
 	finaliza := make(chan bool)
-	var flag = false
-	var counter = 1
-
-	/*go func() {
-
-		for m := range msgMissatge {
-			if m.RoutingKey == "" {
-				flag = true
-				fmt.Println("Cliente1 Menjar", string(m.Body))
-				//m.Ack(false)
-			}
-			fmt.Println("Cliente1 Menjar post if", string(m.Body))
-		}
-	}()*/
 
 	go func() {
-
-		fmt.Println("Cliente1 Comença ", flag, counter)
-		for p := range msgMissatge {
-			p.Ack(false)
-			fmt.Println("Cliente1 Menjar", string(p.Body))
-			for m := range msgSushis {
-				if m.RoutingKey == plat.Name {
-					log.Println("El client ha agafat ", string(m.Body))
-
-					m.Ack(false)
-
-					fmt.Printf("Al plat hi ha %d peces al plat.\n", plat.Messages)
-
-					if counter == peces {
-
-						ch.QueueDelete(missatge.Name, false, false, true)
-
-						finaliza <- true
-						//break
-					}
-
-					counter++
-
-					time.Sleep(1 * time.Second)
-				}
-
+		rand.Seed(time.Now().UTC().UnixNano())
+		var peces = rand.Intn(15)
+		peces++ // para que no sea 0
+		fmt.Println("Bon vesper, vinc a sopar de sushi")
+		fmt.Println("Avui menajare ", peces, " peces")
+		quedan := 0
+		for i := 0; i < peces; i++ {
+			for p := range msgPermis {
+				p.Ack(false)
+				quedan, err = strconv.Atoi(string(p.Body))
+				break
+			}
+			quedan--
+			for s := range msgSushis {
+				s.Ack(false)
+				log.Println("El client ha agafat ", string(s.Body))
+				fmt.Println("Al plat hi ha ", quedan, " peces")
+				time.Sleep(2000)
+				break
+			}
+			time.Sleep(5000)
+			if quedan > 0 {
+				permisSeguent := strconv.Itoa(quedan)
+				err = ch.Publish(
+					"",          // exchange
+					permis.Name, // routing key
+					false,       // mandatory
+					false,       // immediate
+					amqp.Publishing{
+						DeliveryMode: amqp.Persistent,
+						ContentType:  "text/plain",
+						Body:         []byte(permisSeguent),
+					})
+				failOnError(err, "Failed to publish the message")
 			}
 		}
 
-		/*var dlvry = <-msgMissatge
-		//dlvry.Ack(true)
-		if string(dlvry.Body) == "menjar" {
-			fmt.Println("holaa menjaaa")
-			flag = true
-			for i := 0; i < peces; i++ {
-				dlvry = <-msgSushis
-				if flag {
-					fmt.Println("holaa ", string(dlvry.Body))
-					//dlvry.Ack(true)
-				}
-			}
-			finaliza <- true
-		}*/
+		finaliza <- true
+
 	}()
 
 	<-finaliza

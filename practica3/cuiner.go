@@ -63,46 +63,15 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
-	/*counter, err := ch.QueueDeclare( // cola para los sushis
-		"counter", // name
-		true,      // durable  // maybe cambiar esto luego
-		false,     // delete when unused
-		false,     // exclusive
-		false,     // no-wait
-		nil,       // arguments
-	)
-	failOnError(err, "Failed to declare a queue")*/
-
-	/* missatge, err := ch.QueueDeclare( // cola para los sushis
-		"missatge", // name
-		true,       // durable  // maybe cambiar esto luego
-		false,      // delete when unused
-		false,      // exclusive
-		false,      // no-wait
-		nil,        // arguments
-	)
-	failOnError(err, "Failed to declare a queue")
-
-	missatgeGangster, err := ch.QueueDeclare( // cola para los sushis
-		"missatgeGangster", // name
-		true,               // durable  // maybe cambiar esto luego
-		false,              // delete when unused
-		false,              // exclusive
-		false,              // no-wait
-		nil,                // arguments
-	)
-	failOnError(err, "Failed to declare a queue") */
-
-	err = ch.ExchangeDeclare(
+	permis, err := ch.QueueDeclare( // cola para los sushis
 		"permis", // name
-		"fanout", // type
-		true,     // durable
-		true,     // auto-deleted
-		false,    // internal
+		true,     // durable  // maybe cambiar esto luego
+		false,    // delete when unused
+		false,    // exclusive
 		false,    // no-wait
 		nil,      // arguments
 	)
-	failOnError(err, "Failed to declare an exchange")
+	failOnError(err, "Failed to declare a queue")
 
 	var contador = 0
 	for i := 0; i < tipusSushis; i++ {
@@ -123,26 +92,14 @@ func main() {
 		}
 	}
 	if contador == 10 {
-
-		/*err = ch.Publish(
-			"", // exchange
-			counter.Name,       // routing key
-			false,    // mandatory
-			false,    // immediate
-			amqp.Publishing{
-				ContentType: "text/plain",
-				Body:        []byte("menjar"),
-			})
-		failOnError(err, "Failed to publish a message") */
-
 		err = ch.Publish(
-			"permis", // exchange
-			"",       // routing key
-			false,    // mandatory
-			false,    // immediate
+			"",          // exchange
+			permis.Name, // routing key
+			false,       // mandatory
+			false,       // immediate
 			amqp.Publishing{
 				ContentType: "text/plain",
-				Body:        []byte("menjar"),
+				Body:        []byte("10"),
 			})
 		failOnError(err, "Failed to publish a message")
 	}
