@@ -28,8 +28,6 @@ func failOnError(err error, msg string) {
 	}
 }
 
-type Empty struct{} //struct sense camps zero bytes
-
 func main() {
 	// conecta con el servidor RabbitMQ
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
@@ -41,7 +39,7 @@ func main() {
 	failOnError(err, "Failed to open a channel")
 	defer ch.Close()
 
-	// Se identifica
+	// Inicialización de los valores y prints informativos
 	fmt.Println("El cuiner de shushi ja és aquí")
 	fmt.Println("El cuiner prepararà un plat amb:")
 	rand.Seed(time.Now().UTC().UnixNano())
@@ -55,7 +53,7 @@ func main() {
 
 	plat, err := ch.QueueDeclare( // cola para los sushis
 		"plat", // name
-		true,   // durable  // maybe cambiar esto luego
+		true,   // durable
 		false,  // delete when unused
 		false,  // exclusive
 		false,  // no-wait
@@ -63,9 +61,9 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
-	permis, err := ch.QueueDeclare( // cola para los sushis
+	permis, err := ch.QueueDeclare( // cola para los permisos (roundRobin)
 		"permis", // name
-		true,     // durable  // maybe cambiar esto luego
+		true,     // durable
 		false,    // delete when unused
 		false,    // exclusive
 		false,    // no-wait
@@ -77,7 +75,7 @@ func main() {
 	for i := 0; i < tipusSushis; i++ {
 		for j := 0; j < sushis[i]; j++ {
 			contador++
-			err = ch.Publish(
+			err = ch.Publish( // enviamos las piezas de sushi a la cola de sushis
 				"",        // exchange
 				plat.Name, // routing key
 				false,     // mandatory
@@ -92,14 +90,14 @@ func main() {
 		}
 	}
 	if contador == 10 {
-		err = ch.Publish(
+		err = ch.Publish( // enviamos el permiso a la cola de permisos
 			"",          // exchange
 			permis.Name, // routing key
 			false,       // mandatory
 			false,       // immediate
 			amqp.Publishing{
 				ContentType: "text/plain",
-				Body:        []byte("10"),
+				Body:        []byte("10"), // El permiso contiene el número de sushis que hay en la cola
 			})
 		failOnError(err, "Failed to publish a message")
 	}

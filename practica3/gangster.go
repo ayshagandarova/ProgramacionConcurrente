@@ -16,8 +16,6 @@ func failOnError(err error, msg string) {
 	}
 }
 
-type Empty struct{} //struct sense camps zero bytes
-
 func main() {
 	// conecta con el servidor RabbitMQ
 	conn, err := amqp.Dial("amqp://guest:guest@localhost:5672/")
@@ -31,7 +29,7 @@ func main() {
 
 	plat, err := ch.QueueDeclare( // cola para los sushis
 		"plat", // name
-		true,   // durable  // maybe cambiar esto luego
+		true,   // durable
 		false,  // delete when unused
 		false,  // exclusive
 		false,  // no-wait
@@ -39,9 +37,9 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
-	permis, err := ch.QueueDeclare( // cola para los sushis
+	permis, err := ch.QueueDeclare( // cola para los permisos
 		"permis", // name
-		true,     // durable  // maybe cambiar esto luego
+		true,     // durable
 		false,    // delete when unused
 		false,    // exclusive
 		false,    // no-wait
@@ -49,10 +47,7 @@ func main() {
 	)
 	failOnError(err, "Failed to declare a queue")
 
-	fmt.Println("Bon vesper, vinc a sopar de sushi")
-	fmt.Println("Ho vull tot!")
-
-	msgPermis, err := ch.Consume( // va a leer los mensajes de la cola encarrec
+	msgPermis, err := ch.Consume( // msgPermis contiene los mensajes de la cola de permisos
 		permis.Name, // queue
 		"",          // consumer
 		false,       // auto-ack  // usamos mensajes ack manualmente
@@ -72,8 +67,11 @@ func main() {
 
 	finaliza := make(chan bool)
 
+	fmt.Println("Bon vesper, vinc a sopar de sushi")
+	fmt.Println("Ho vull tot!")
+
 	go func() {
-		elem := 0
+		elem := 0 // guardamos cuantos sushis ha consumido el gangster del plato
 		for p := range msgPermis {
 			p.Ack(false)
 			elem, err = strconv.Atoi(string(p.Body))
